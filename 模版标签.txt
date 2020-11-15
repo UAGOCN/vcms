@@ -794,6 +794,15 @@ __PUBLIC__网站公用目录路径
 </fflist>
 
 -----高级用法：只显示影视模块的链接放在循环标签内控制-----------------
+标签 	含义
+eq或者 equal 	等于
+neq 或者notequal 	不等于
+gt 	大于
+egt 	大于等于
+lt 	小于
+elt 	小于等于
+heq 	恒等于
+nheq 	不恒等于
 
 <fflist name="list_menu" id="ppvod">
 
