@@ -42,14 +42,14 @@
               <dl class="ui-screen__min clearfix">
                 <dt class="text-muted">按年份</dt>
                 <dd class="type-slide m-bottom-line">
-                  <volist name="array_year" id="year" offset="0" length="14"><a href="{:UU('Home-vod/search',array('year'=>$year),false,true,year)}">{$year}</a></volist></dd>
+                  <volist name="array_year" id="year" offset="0" length="14"><a href="{:UU('Home-vod/search',array('year'=>$year),false,true,'year')}">{$year}</a></volist></dd>
               </dl>
             </div>
             <div class="col-md-3 col-sm-1 col-xs-1">
               <dl class="ui-screen__min clearfix">
                 <dt class="text-muted">按地区</dt>
                 <dd class="type-slide active">
-                  <volist name="array_area" id="area"><a href="{:UU('Home-vod/search',array('area'=>urlencode($area)),false,true,area)}">{$area}</a></volist></dd>
+                  <volist name="array_area" id="area"><a href="{:UU('Home-vod/search',array('area'=>urlencode($area)),false,true,'area')}">{$area}</a></volist></dd>
               </dl>
             </div>
           </div>

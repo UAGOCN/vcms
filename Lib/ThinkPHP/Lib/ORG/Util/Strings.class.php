@@ -185,7 +185,7 @@ class Strings extends Think
 			}
 			$rand   =  array();
 			for($i=0; $i<$number; $i++) {
-				$rand[] =   rand_string($length,$mode);
+				$rand[] =   self::rand_string($length,$mode);
 			}
 			$unqiue = array_unique($rand);
 			if(count($unqiue)==count($rand)) {
@@ -193,7 +193,7 @@ class Strings extends Think
 			}
 			$count   = count($rand)-count($unqiue);
 			for($i=0; $i<$count*3; $i++) {
-				$rand[] =   rand_string($length,$mode);
+				$rand[] =   self::rand_string($length,$mode);
 			}
 			$rand = array_slice(array_unique ($rand),0,$number);
 			return $rand;
