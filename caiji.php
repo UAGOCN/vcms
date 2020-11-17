@@ -114,7 +114,7 @@ if(!empty($_GET['id'])&&!empty($_GET['list'])) {
 }
 
 function getVideo($cid = 1, $p = 1) {
-    $url = 'http://www.zdziyuan.com/inc/s_feifei3zuidam3u8/'; // 飞飞3.4
+    $url = ''; // 飞飞3.4
     $jsonVideo = getJson($url.'?a=json&cid='.intval($cid).'&g=plus&m=api&p='.intval($p),getRandIP());
     if(!empty($jsonVideo[1])&&$jsonVideo[1] == 200) {
         return json_decode($jsonVideo[0], true);
