@@ -59,7 +59,7 @@
             if($type_id){    
                 C('jumpurl',UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'year'=>$type_year,'area'=>$type_area,'order'=>$type_order,'p'=>'{!page!}'),false,true));
                 $vod_list = ff_mysql_vod('cid:'.$type_id.';tag:'.$type_wd.';year:'.$type_year.';area:'.$type_area.';letter:'.$type_letter.';actor:'.$type_actor.';limit:20;page:true;order:vod_'.$type_order.' desc,vod_id desc');
-                $page = $vod_list[0]['page'];
+                $page = !empty($vod_list[0]['page'])?$vod_list[0]['page']:'';
             }
           </php>
 
