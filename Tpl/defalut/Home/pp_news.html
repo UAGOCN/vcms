@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-cmn-Hans">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{$title}</title>
+<meta name="keywords" content="{$news_name}">
+<meta name="description" content="{$news_remark}">
+<include file="Home:home_header" />
+</head>
+<body class="index">
+<include file="Home:pp_header" />
+<!-- // header end--> 
+<!-- // content start-->
+<div class="content">
+    <div id="wrapper">
+        <div class="container">
+            <div class="category">
+                <div class="container">
+                    <dl class="clearfix">
+                        <dt>类型：</dt>
+                        <dd class="ff-gallery ff-text-right">
+                            <a href="{:getlistname($list_pid,'list_url')}">全部</a>
+                            <volist name="list_menu" id="ppvod">
+                                <volist name="ppvod.son" id="ppvod"><if condition="$ppvod['list_pid'] eq $list_pid"><a href="{$ppvod.list_url}" <eq name="ppvod.list_id" value="$list_id">class="active"</eq><eq name="ppvod.list_id" value="$list_pid">class="active"</eq> <eq name="ppvod.list_id" value="$list_pid">class="active"</eq>>{$ppvod.list_name}</a></if></volist>
+                            </volist>
+
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="pageTop"></div>
+            <div class="container">
+                <div class="panel">
+                    <div class="main-text-wrap">
+                        <h2 class="text-center">{$news_name}</h2>
+                        <div class="text-center page-header">来源:{$news_inputer} {$news_addtime|date='Y-m-d H:i:s',###}</div>
+                        <div class="read-content">{:ff_content_url($news_content,$Tag,2)}</div>
+                    </div>
+                    <div class="chapter-control dib-wrap"><include file="Home:home_news_detail_next" /></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="panel">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title panel-title-icon"><img class="icon" src="{$tpl}static/images/icon-cnxh.png" alt="猜你喜欢 {$list_name}" />猜你喜欢 {$list_name}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="thumbnail-group thumbnail-group-sm clearfix">
+                            <php>$gold_desc = ff_mysql_news('cid:'.$list_id.';limit:12;order:news_up desc,news_addtime desc');</php>
+                            <volist name="gold_desc" id="ppvod">
+                            <li><a class="thumbnail" href="{$ppvod.news_readurl}">
+                                <span class="title">{$ppvod.news_name|msubstr=0,12}</span>
+                                <div class="i-item-txt">
+                                    <div class="i-item-low ac">
+                                        <em><i class="icon-star fl"></i>{$ppvod.news_gold}</em>
+                                        <b>·</b>
+                                        <span>{$list_name}</span>
+                                    </div>
+                                </div>
+                            </a></li>
+                            </volist>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title panel-title-icon"><img class="icon" src="{$tpl}static/images/icon-pl.png" alt="全部评论" />全部评论</h3>
+                    </div>
+                    <div class="box2 player_l">
+                        <div id="Comment" class="Comment">评论加载中...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript">FF.History.Insert('{$news_name}','{$news_readurl}',10,7,'');</script>
+{$news_hits_insert}
+
+<include file="Home:pp_footer" />
+
+</body>
+</html>
