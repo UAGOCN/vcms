@@ -1,0 +1,8 @@
+<title>《{$vod_name}》<eq name="list_pid" value="2">{$vod_jiname}电视剧手机在线观看<else />{$vod_continu}电影手机在线观看</eq>_{$sitename}</title>
+<in name="list_pid" value="2,3">
+<meta name="keywords" content=",{$vod_name}{$vod_jiname},{$vod_actor},{$list_name}">
+<meta name="description" content="{$vod_name}{$vod_jiname}，是由{$vod_director}导演，由{$vod_actor}等主演的电视剧，开播时间：{$vod_year}，电视剧情：{$vod_content|h|msubstr=0,80}...。">
+<else />
+<meta name="keywords" content="{$vod_name},{$vod_actor},{$list_name}">
+<meta name="description" content="{$vod_name}，是由{$vod_director}导演，由{$vod_actor}等主演的电影，上映时间：{$vod_year}，电影剧情：{$vod_content|h|msubstr=0,80}...。">
+</in>
