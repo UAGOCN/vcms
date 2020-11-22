@@ -147,13 +147,13 @@ a {text-decoration-line: none;color: #20a53a}
 </style>
 </head>
 <body>
-    <div class="container">
-        <h2><a href="https://music.163.com/song?id=<?php echo $name['id'];?>"><?php echo $name['name'];?> - <?php echo $name['singer'];?></a></h2>
-        <p><?php echo $name['content'];?></p>
-        <p style="text-align:right;">来自:<?php echo $name['nickname'];?></p>
-        <p style="text-align:center;"><audio id="myAudio" controls="controls" autoplay="autoplay"><source src="<?php echo $name['player'];?>" type="audio/mpeg" /></audio></p>
-        <p style="text-align:center;"><a href="https://beian.miit.gov.cn/" target="_blank">ICP备20201111号</a></p>
-    </div>
+<div class="container">
+    <h2><a href="https://music.163.com/song?id=<?php echo $name['id'];?>"><?php echo $name['name'];?> - <?php echo $name['singer'];?></a></h2>
+    <p><?php echo $name['content'];?></p>
+    <p style="text-align:right;">来自:<?php echo $name['nickname'];?></p>
+    <p style="text-align:center;"><audio id="myAudio" controls="controls" autoplay="autoplay"><source src="<?php echo $name['player'];?>" type="audio/mpeg" /></audio></p>
+    <p style="text-align:center;"><a href="https://beian.miit.gov.cn/" target="_blank">ICP备20201111号</a></p>
+</div>
+<script type="text/javascript">var aud = document.getElementById("myAudio");aud.onended = function(){location.reload();};</script>
 </body>
-<script>var aud = document.getElementById("myAudio");aud.onended = function(){location.reload();};</script>
 </html>
