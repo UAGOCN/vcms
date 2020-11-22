@@ -2,7 +2,7 @@
 header("Content-Type: text/html; charset=utf-8");
 
 function getData() {
-    $data = "{id:'2884035','limit':30,'offset':0}";
+    $data = "{id:'2884035','limit':10,'offset':0}";
     $detail = getJson('https://music.163.com/weapi/playlist/detail?csrf_token=',$data);
     if(empty(json_decode($detail[0],true)['result'])||strpos($detail[0],'"code":406')!==false) {
         exit(header("Refresh:0"));
@@ -10,16 +10,27 @@ function getData() {
     $detail = json_decode($detail[0],true)['result']['tracks'];
     $detail = $detail[array_rand($detail,1)];
     $comments = getJson('https://music.163.com/weapi/v1/resource/comments/R_SO_4_'.$detail['id'],$data);
+    if(empty(json_decode($comments[0],true)['hotComments'])||strpos($comments[0],'"code":406')!==false) {
+        exit(header("Refresh:0"));
+    }
     $comments = json_decode($comments[0],true)['hotComments'];
     $comments = $comments[array_rand($comments,1)];
     foreach($detail['artists'] as $value){
-        $singer[] = $value['name'];
+        $singer[] = strip_tags($value['name']);
     }
+    $bit_rate = 320000;
+    $data = "{'ids': [".$detail['id']."], 'br': ".$bit_rate.", 'csrf_token': ''}";
+    $player = getJson('http://music.163.com/weapi/song/enhance/player/url?csrf_token=',$data);
+    if(empty(json_decode($player[0],true)['data'][0])){
+        exit(header("Refresh:0"));
+    }
+    $player = json_decode($player[0],true)['data'][0]['url'];
     return array('id' => ceil($detail['id']),
                  'name' => strip_tags($detail['name']),
                  'singer' => strip_tags(implode(',',$singer)),
                  'content' => strip_tags($comments['content']),
                  'nickname' => strip_tags($comments['user']['nickname']),
+                 'player' => strip_tags($player)
             );
 }
 
@@ -140,7 +151,9 @@ a {text-decoration-line: none;color: #20a53a}
         <h2><a href="https://music.163.com/song?id=<?php echo $name['id'];?>"><?php echo $name['name'];?> - <?php echo $name['singer'];?></a></h2>
         <p><?php echo $name['content'];?></p>
         <p style="text-align:right;">来自:<?php echo $name['nickname'];?></p>
+        <p style="text-align:center;"><audio id="myAudio" controls="controls" autoplay="autoplay"><source src="<?php echo $name['player'];?>" type="audio/mpeg" /></audio></p>
         <p style="text-align:center;"><a href="https://beian.miit.gov.cn/" target="_blank">豫ICP备17035756号</a></p>
     </div>
 </body>
+<script>var aud = document.getElementById("myAudio");aud.onended = function(){location.reload();};</script>
 </html>
