@@ -81,7 +81,7 @@ if(!empty($_GET['id'])&&!empty($_GET['list'])) {
         preg_match_all('/([a-zA-Z0-9\:\_\/\-\.]+m3u8)/', $value['vod_url'], $vod_url);
         if(empty($vod_url[1])){exit($toHref);}
         $vod_length = ceil(getDuration($vod_url[1][count($vod_url[1])-1])/60);
-        if(empty($vod_length)){$vod_length = mt_rand(90,120);}
+        if(empty($vod_length)){exit($toHref);}
         $vod_url = implode(PHP_EOL,$vod_url[1]);
 
         preg_match_all($title, $value['vod_continu'], $vod_continu);
