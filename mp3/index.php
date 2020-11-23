@@ -140,20 +140,170 @@ $name = getData();
 <meta charset="utf-8">
 <title>网易云热评墙 - 记录伤心生活</title>
 <style>
+*{margin: 0;padding: 0}
+.myaudio{width:100%;height:60px;position: fixed;bottom:0;}
+.myaudio>.myaudio-center{max-width:500px;height:100%;width:100%;position: absolute;top:0 }
+.myaudio>.myaudio-center>.aud-btn{height:50px;width:50px;position: absolute;top:5px;left:10px}
+.myaudio>.myaudio-center>.aud-btn>img{height:100%;width:100%;}
+.myaudio>.myaudio-center>.aud-show{height:100%;position: absolute;left:65px;}
+.myaudio>.myaudio-center>.aud-show>#Progress-time,.myaudio>.myaudio-center>.aud-show>#Progress-end{width:40px; height:100%;font-size: 13px;line-height: 60px;text-align: center;}
+.myaudio>.myaudio-center>.aud-show>#Progress-time{position: absolute;left:0;}
+.myaudio>.myaudio-center>.aud-show>#Progress{position: absolute;left:50px;top:28px;height:6px;background: #8cd287}
+.myaudio>.myaudio-center>.aud-show>#Progress-end{position: absolute;right:0;}
+.myaudio>.myaudio-center>.aud-show>#Progress>#jin{width:6px;height:6px;background-color: blue;position: absolute;left:0px;;}
+.myaudio>.myaudio-center>.aud-show>#Progress>#yuan{width:9px;height:9px;background-color: #fff;border: 1px solid #92d79b;border-radius: 6px;position: absolute;left:-3px;top:-2px;}
 .container {width: 60%;margin: 10% auto 0;background-color: #f0f0f0;padding: 2% 5%;border-radius: 10px}
 ul {padding-left: 20px;}
 ul li {line-height: 2.3}
 a {text-decoration-line: none;color: #20a53a}
 </style>
+<script type="text/javascript" src="/Public/jquery/jquery.min.js" charset="utf-8"></script>
 </head>
 <body>
 <div class="container">
     <h2><a href="https://music.163.com/song?id=<?php echo $name['id'];?>"><?php echo $name['name'];?> - <?php echo $name['singer'];?></a></h2>
     <p><?php echo $name['content'];?></p>
     <p style="text-align:right;">来自:<?php echo $name['nickname'];?></p>
-    <p style="text-align:center;"><audio id="myAudio" controls="controls" autoplay="autoplay"><source src="<?php echo $name['player'];?>" type="audio/mpeg" /></audio></p>
     <p style="text-align:center;"><a href="https://beian.miit.gov.cn/" target="_blank">ICP备20201111号</a></p>
 </div>
-<script type="text/javascript">var aud = document.getElementById("myAudio");aud.onended = function(){location.reload();};</script>
+<div class="myaudio">
+    <div class="myaudio-center">
+        <audio id="aud">
+            <source src='<?php echo $name['player'];?>' type='audio/ogg' width='300px' >
+            <source src='<?php echo $name['player'];?>' type='audio/mpeg' width='300px' >
+            <source src='<?php echo $name['player'];?>' type='audio/wav' width='300px' >
+            浏览器不支持此格式
+        </audio>
+        <div class="aud-btn">
+            <img src="images/play.png" id="play" />
+        </div>
+        <div class="aud-show">
+            <div id="Progress-time">00:00</div> 
+                <div id="Progress">
+                    <span id="jin"></span><span id="yuan"></span> 
+                </div> 
+                <div id="Progress-end">00:00</div> 
+            </div>
+        </div>
+</div>
+<script type="text/javascript">
+var footerW = $('.myaudio').width();
+var audioW = $('.myaudio-center').width();
+$('.myaudio-center').css({'left':(footerW-audioW)/2});
+$('.aud-show').css({'width':audioW-70});
+$('#Progress').css({'width':audioW-170});
+var i=0;
+$('#play').click(function () {
+    i++;
+    if (i % 2 != 0) {
+        $(this).attr('src', 'images/pause.png');
+        aud_play();
+    } else {
+        $(this).attr('src', 'images/play.png');
+        aud_pause();
+    }
+})
+var music;
+var audio = document.getElementById("aud");
+function aud_play(q=0) {
+    audio.currentTime = q;
+    audio.play();
+    music = setInterval(function () {
+        var curtime = audio.currentTime.toFixed(2);
+        var durtime = audio.duration.toFixed(2);
+        var str = "00:00";
+        var time = formatSeconds(curtime);
+        var time1 = str.substring(0, str.length - formatSeconds(durtime).length) + formatSeconds(durtime);
+        $('#Progress-time').html(time);
+        $('#Progress-end').html(time1);
+        $width = curtime / durtime * (audioW - 181);
+        $('#jin').css({width: $width});
+        $('#yuan').css({left: $width});
+    }, 100);
+}
+function aud_pause() {
+    document.getElementById("aud").pause();
+    clearInterval(music);
+}
+function formatSeconds(value) {
+    var theTime = parseInt(value);// 秒
+    var theTime1 = 0;// 分
+    var theTime2 = 0;// 小时
+    if (theTime > 60) {
+        theTime1 = parseInt(theTime / 60);
+        theTime = parseInt(theTime % 60);
+        if (theTime1 > 60) {
+            theTime2 = parseInt(theTime1 / 60);
+            theTime1 = parseInt(theTime1 % 60);
+        }
+    }
+    var result = "" + theTime;
+    result  =   (result.length==1)?'0'+result:result;
+    if (theTime1 > 0) {
+        theTime1  =   (theTime1.length==1)?'0'+theTime1:theTime1;
+        result = "" + theTime1 + ":" + result;
+    }
+    if (theTime2 > 0) {
+        theTime2  =   (theTime2.length==1)?'0'+theTime2:theTime2;
+        result = "" + theTime2 + ":" + result;
+    }
+    result =   (result.length==2)?'00:'+result:result;
+    return result;
+}
+var cont = $("#yuan");
+var contW = $("#yuan").width();
+var startX, sX, moveX, disX;
+var winW = $('#Progress').width();
+$("#yuan").on({
+    touchstart: function (e) {
+        startX = e.originalEvent.targetTouches[0].pageX;
+        sX = $(this).offset().left-110;
+        leftX = startX - sX;
+        rightX = winW - contW + leftX;
+    },
+    touchmove: function (e) {
+        e.preventDefault();
+        moveX = e.originalEvent.targetTouches[0].pageX;
+        if(moveX<leftX){moveX=leftX;}
+        if(moveX>rightX){moveX=rightX;}
+        $(this).css({
+            "left":moveX+sX-startX,
+        });
+        $('#jin').width($(this).width()+moveX+sX-startX);
+       var w = audio.duration.toFixed(2)*($('#jin').width()/winW);
+        $('#play').attr('src', 'images/pause.png');
+        aud_play(w);
+    },
+    mousedown: function (ev) {
+        aud_pause();
+        var patch = parseInt($(this).css("height")) / 2;
+        var left1 = parseInt($(this).parents('.myaudio-center').css("left"));
+        $(this).mousemove(function (ev) {
+            var oEvent = ev || event;
+            var oX = oEvent.clientX;
+            console.log(oX);
+            var l = oX - patch-left1-115;
+            console.log(l);
+            var w = $(window).width() - $(this).width();
+            console.log(w);
+            if (l < 0) {
+                l = 0;
+            }
+            if (l > w) {
+                l = w;
+            }
+            $(this).css({left: l});
+            $('#jin').width($(this).width()+l);
+            var w = audio.duration.toFixed(2)*($('#jin').width()/winW);
+             $('#play').attr('src', 'images/pause.png');
+             aud_play(w);
+        });
+        $(this).mouseup(function () {
+            $(this).unbind('mousemove');
+        });
+    }
+});
+</script>
+<script type="text/javascript">var aud = document.getElementById("aud");aud.onended = function(){location.reload();};</script>
 </body>
 </html>
