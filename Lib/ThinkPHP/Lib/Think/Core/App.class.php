@@ -62,9 +62,10 @@ class App
 
          // Session初始化
         if(C('SESSION_AUTO_START'))  {
-            ini_set('session.cookie_httponly', TRUE);
-            ini_set('session.cookie_cookie_secure', TRUE);
             session_start();
+            $params = session_get_cookie_params();
+            setcookie("PHPSESSID", session_id(), 0, $params["path"], $params["domain"], TRUE, TRUE, 'lax');
+            unset($params);
         }
         // URL调度
         Dispatcher::dispatch();

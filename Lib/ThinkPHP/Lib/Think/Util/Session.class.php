@@ -39,9 +39,10 @@ class Session extends Think
      */
     static function start()
     {
-        ini_set('session.cookie_httponly', TRUE);
-        ini_set('session.cookie_cookie_secure', TRUE);
         session_start();
+        $params = session_get_cookie_params();
+        setcookie("PHPSESSID", session_id(), 0, $params["path"], $params["domain"], TRUE, TRUE, 'lax');
+        unset($params);
         if (!isset($_SESSION['__HTTP_Session_Info'])) {
             $_SESSION['__HTTP_Session_Info'] = HTTP_SESSION_STARTED;
         } else {
