@@ -1,1 +1,0 @@
-var ff_root="/";var ff_width=640;var ff_height=480;var ff_showlist=1;var ff_second=10;var ff_down_a="http://downa.video.com/";var ff_down_b="http://downb.video.com/";var play_m3u8="CKPlayer";
