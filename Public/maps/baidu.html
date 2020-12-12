@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset>
+    <url>
+        <loc>{$siteurl}</loc>
+        <lastmod>{:date('Y-m-d',time())}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <volist name="list_map" id="ppvod">
+    <url>
+        <loc>{:get_base_url($siteurl,$ppvod['vod_readurl'])}</loc>
+        <lastmod>{$ppvod.vod_addtime|date='Y-m-d',###}</lastmod>
+        <changefreq>always</changefreq>
+        <priority>0.8</priority>
+    </url>
+    </volist>
+
+</urlset>
