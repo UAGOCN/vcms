@@ -1,0 +1,22 @@
+<notempty name="cm_list">
+    <fflist name="cm_list" id="ppvod">
+    <div class="ui-pannel ui-pannel-bg clearfix">
+      <div class="ui-pannel-box clearfix">
+          <div class="col-pd">
+              <div class="bottom-line">
+                  <span class="text-muted pull-right">{$ppvod.cm_floor}楼</span>
+                  <h4 class="title" style=" margin: 0 0 10px; padding-bottom: 10px;">{$ppvod.user_name|htmlspecialchars|remove_xss}</h4>
+              </div>
+              <p class="text-red">{$ppvod.cm_content|htmlspecialchars|remove_xss}</p>
+              <p class="text-muted font-12">{$ppvod.cm_addtime|date='Y-m-d H:i:s',###}</p>
+            </div>
+        </div>
+    </div>
+    </fflist>
+    <if condition="$cm_count gt C('user_cmnum')"><div class="pages">{$cm_pages}</div></if>
+</notempty>
+<!--发表评论-->
+<div class="ui-comment__form clearfix form">
+    <textarea class="comment_content form-control" name="comment_content" id="comment_content" rows="5" onfocus="if(this.value=='请在这里发表您的个人看法，最多200个字。'){this.value='';}" onblur="if(this.value==''){this.value='请在这里发表您的个人看法，最多200个字。';};" maxlength="200">请在这里发表您的个人看法，最多200个字。</textarea>
+    <div class="submit-box"><p><input id="comment_button" class="comment_submit btn btn-primary pull-right cm_button" onclick="SAN.Comment.Post();" type="button" value="发表评论"/></p><p><span id="comment_tips"></span></p></div>
+</div>
