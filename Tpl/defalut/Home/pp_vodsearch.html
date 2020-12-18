@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="content-language" content="zh-CN">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="applicable-device" content="pc,mobile">
+<title>搜索{$title}</title>
+<meta name="keywords" content="<notempty name="search_wd">{$search_wd}</notempty><notempty name="search_actor">{$search_actor}</notempty><notempty name="search_director">{$search_director}</notempty><notempty name="search_year">{$search_year}</notempty><notempty name="search_language">{$search_language}</notempty><notempty name="search_area">{$search_area}</notempty><notempty name="search_letter">{$search_letter}</notempty>">
+<meta name="description" content="搜索<notempty name="search_wd">{$search_wd}</notempty><notempty name="search_actor">{$search_actor}</notempty><notempty name="search_director">{$search_director}</notempty><notempty name="search_year">{$search_year}</notempty><notempty name="search_language">{$search_language}</notempty><notempty name="search_area">{$search_area}</notempty><notempty name="search_letter">{$search_letter}</notempty>结果">
+<include file="Home:home_header" />
+</head>
+<body>
+<include file="Home:pp_header" />
+
+<div class="container">
+    <div class="row">
+        <div class="ui-pannel ui-pannel-bg clearfix">
+          <div class="ui-pannel-box">
+            <div class="ui-pannel_hd">
+              <div class="ui-pannel__head active bottom-line clearfix">
+                <h2 class="title">
+                  <img src="{$tpl}static/images/icon_27.png" alt="搜索" />搜索"<strong style="color:#4c8fe8;"><notempty name="search_wd">{$search_wd}</notempty><notempty name="search_actor">{$search_actor}</notempty><notempty name="search_director">{$search_director}</notempty><notempty name="search_year">{$search_year}</notempty><notempty name="search_language">{$search_language}</notempty><notempty name="search_area">{$search_area}</notempty><notempty name="search_letter">{$search_letter}</notempty></strong>" 结果</h2></div>
+            </div>
+            <div class="ui-pannel_bd">
+              <ul class="ui-vodlist__media col-pd clearfix">
+                <php>$vod_list = ff_mysql_vod('wd:'.$search_wd.';actor:'.$search_actor.';director:'.$search_director.';year:'.$search_year.';language:'.$search_language.';area:'.$search_area.';letter:'.$search_letter.';limit:12;page:true;order:vod_addtime desc');$page = !empty($vod_list[0]['page'])?$vod_list[0]['page']:'';</php>
+                <notempty name="vod_list.0.count">
+                <gt name="vod_list.0.count" value="0"><volist name="vod_list" id="ppvod">
+                <li class="active clearfix">
+                  <div class="thumb">
+                    <a class="v-thumb ui-vodlist__thumb lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                      <span class="ui-vodlist__top">
+                        <em class="voddate ui-vodlist__language">{$ppvod.vod_language|default='未知'}</em>
+                      </span>
+                      <span class="play hidden-xs"></span>
+                      <span class="pic-text text-right">{$ppvod.vod_continu|default='未知'}</span></a>
+                  </div>
+                  <div class="detail">
+                    <h3 class="title">
+                      <a href="{$ppvod.vod_readurl}">{$ppvod.vod_name}</a></h3>
+                    <p>
+                      <span class="text-muted">导演：</span>{$ppvod.vod_director|default='未知'}</p>
+                    <p>
+                      <span class="text-muted">主演：</span>{$ppvod.vod_actor|default='未知'}</p>
+                    <p class="hidden-mi">
+                      <span class="text-muted">类型：</span>{$ppvod.list_name|default='未知'}
+                      <span class="split-line"></span>
+                      <span class="text-muted">地区：</span>{$ppvod.vod_area|default='未知'}
+                      <span class="hidden-xs">
+                        <span class="split-line"></span>
+                        <span class="text-muted">年份：</span>{$ppvod.vod_year|default='未知'}</span></p>
+                    <p class="margin-0">
+                      <a class="btn btn-min btn-primary" href="{$ppvod.vod_playurl}">立即播放</a>&nbsp;&nbsp;
+                      <a class="btn btn-min btn-default" href="{$ppvod.vod_readurl}">查看详情</a></p>
+                  </div>
+                </li></volist>
+                </gt> 
+                <else/>
+                    <li>对不起,没有搜索到 <font color="#FF0000"><notempty name="search_wd">{$search_wd}</notempty><notempty name="search_actor">{$search_actor}</notempty><notempty name="search_director">{$search_director}</notempty><notempty name="search_year">{$search_year}</notempty><notempty name="search_language">{$search_language}</notempty><notempty name="search_area">{$search_area}</notempty><notempty name="search_letter">{$search_letter}</notempty></font> 相关内容!</li>
+                </notempty>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+        <ul class="ui-page text-center cleafix">
+            {$page}
+
+        </ul>
+    </div>
+  </div>
+
+<include file="Home:pp_footer" />  
+
+</body>
+</html>
