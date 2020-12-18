@@ -1,0 +1,1 @@
+var san_root="/";var san_width=640;var san_height=480;var san_showlist=1;var san_second=10;var san_down_a="http://downa.video.com/";var san_down_b="http://downb.video.com/";var play_m3u8="CKPlayer";
