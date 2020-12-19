@@ -1,0 +1,8 @@
+<title>《{$vod_name}》<eq name="list_pid" value="2">{$vod_jiname}电视剧在线观看<else />{$vod_continu}电影在线观看</eq> - {$sitename}</title>
+<in name="list_pid" value="2,3">
+<meta name="keywords" content="{$vod_name}{$vod_jiname},电视剧在线观看,{$list_name}">
+<meta name="description" content="{$vod_name}{$vod_jiname}，电视剧简介：{$vod_content|h|msubstr=0,100}...。">
+<else />
+<meta name="keywords" content="{$vod_name},电影在线观看,{$list_name}">
+<meta name="description" content="{$vod_name}，电影简介：{$vod_content|h|msubstr=0,100}...。">
+</in>
