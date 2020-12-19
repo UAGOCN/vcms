@@ -1,0 +1,22 @@
+<if condition="is_https() == true"><meta http-equiv="Refresh" content="0;url={:get_http_url()}"/></head></html>{:exit()}</if>
+
+<link rel="shortcut icon" href="{$root}favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="{$tpl}static/css/iconfont.css" type="text/css" />
+<link rel="stylesheet" href="{$tpl}static/css/block.css" type="text/css" />
+<link rel="stylesheet" href="{$tpl}static/css/block_color.css" type="text/css" />
+<link rel="stylesheet" href="{$tpl}static/css/default.css" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/jquery/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="__PUBLIC__/jquery/jquery.lazyload.js" charset="utf-8"></script>
+<script type="text/javascript" src="__PUBLIC__/jquery/jquery.autocomplete.js" charset="utf-8"></script>
+<script type="text/javascript" src="{$tpl}static/js/default.js" charset="utf-8"></script>
+<script type="text/javascript" src="{$tpl}static/js/block.js" charset="utf-8"></script>
+<script type="text/javascript" src="{$tpl}static/js/home.js" charset="utf-8"></script>
+
+<script type="text/javascript"><if condition="!empty($root)">var Root='{$root}';<else />var Root='';</if><if condition="!empty($sid)">var Sid='{$sid}';<else />var Sid='';</if><if condition="!empty($list_id)">var Cid='{$list_id}';<else />var Cid='';</if><if condition="!empty($sid)&&$sid eq 1"><if condition="!empty($vod_id)">var Id='{$vod_id}';<else />var Id='';</if><else /><if condition="!empty($news_id)">var Id='{$news_id}';<else />var Id='';</if></if></script>
+
+<!--[if lt IE 9]>
+<script src="{$tpl}static/js/html5shiv.min.js" charset="utf-8"></script>
+<script src="{$tpl}static/js/respond.min.js" charset="utf-8"></script>
+<![endif]-->
+
+<!--系统JS与CSS -->
