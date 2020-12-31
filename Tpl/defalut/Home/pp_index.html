@@ -1,0 +1,544 @@
+﻿<if condition="is_https() == true"><html><meta http-equiv="refresh" content="0;url={:get_http_url()}"></html>{:exit()}</if>
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="content-language" content="zh-CN">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="applicable-device" content="pc,mobile">
+<title>{$title} - {:date(Y)}最新视频手机端免费在线观看</title>
+<meta name="keywords" content="{$keywords}">
+<meta name="description" content="{$description}">
+<include file="Home:home_header" />
+</head>
+<body>
+<php>
+  $vod_news = ff_mysql_vod('limit:5;order:vod_addtime desc');
+  $special_new = ff_mysql_special('limit:8;order:special_id desc');
+  $special_hot = ff_mysql_special('limit:3;order:special_id desc,special_hits desc');</php>
+
+<include file="Home:pp_header" />
+<!-- // header end-->
+
+<!--内容-->
+<div class="container">
+  <div class="row">
+    <!--公告-->
+    <div class="ui-pannel clearfix">
+      <div class="screen_roll">
+        <div class="flex_row iconfont icon_anounce">
+          <div class="marquee">
+            <p class="p pageWelcome"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--结束公告-->
+    <div class="ui-pannel clearfix">
+      <div class="pageTop"></div>
+    </div>
+    <!--幻灯片-->
+    <div class="ui-pannel ui-pannel-bg clearfix">
+      <div class="ui-pannel-box clearfix">
+        <div class="ui-pannel_bd clearfix">
+          <div class="col-lg-wide-6 col-xs-1 padding-0">
+            <div class="carousel carousel_default col-pd">
+              <fflist name="vod_news" id="ppvod" mod="4">
+                <div class="wide">
+                  <a href="{$ppvod.vod_readurl}" class="ui-vodlist__thumb active lazyload" title="{$ppvod.vod_name}" style="background: url({$ppvod.vod_picurl}) no-repeat; background-position:50% 50%; background-size: cover; padding-top: 50%;">
+                    <span class="play hidden-xs"></span>
+                    <span class="pic-text pic-text-silde text-center">{$ppvod.vod_name}</span></a>
+                </div>
+              </fflist>
+
+            </div>
+          </div>
+          <div class="col-lg-wide-4 col-xs-1 padding-0">
+            <div class="nav__taddar clearfix">
+              <volist name="list_menu" id="ppvod">
+                <div class="col-xs-4">
+                  <a class="item" href="{$ppvod.list_url}">
+                    <img class="icon-img" src="{$tpl}static/images/icon_{$ppvod.list_id}.png" alt="{$ppvod.list_name}" />
+                    <label class="title">{$ppvod.list_name}</label></a>
+                </div>
+              </volist>
+
+            </div>
+            <ul class="tag tag-btn clearfix">
+              <fflist name="special_new" id="ppvod">
+                <li class="col-xs-4"><a class="<if condition="$ppvod.special_id % 2">active</if> text-overflow" href="{$ppvod.special_readurl}" target="_blank">{$ppvod.special_name}</a></li>
+              </fflist>
+
+            </ul>
+            <div class="col-pd">
+              <div class="ui-index__code clearfix hidden-md hidden-sm hidden-xs">
+                <div class="col-xs-wide-3">
+                  <div class="pic-responsive" id="qrcode2" width="125"></div>
+                </div>
+                <div class="col-xs-wide-7 col-pd">
+                  <h4 style="margin-top: 10px;">扫一扫“下载APP”</h4>
+                  <p>随时随地 想看就看</p>
+                  <p class="margin-0">
+                    <span class="more hidden-xs">今日更新“{:getcount('999','1')+getcount('999','2')+getcount('999','3')+getcount('999','4')}”部影片。</span>
+                    <br />{$sitename}: {:get_index_url()}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--结束幻灯片-->
+
+    <!--电影栏目-->
+    <php>$vod_new = ff_mysql_vod('cid:5,6,7,8,9,10;limit:12;order:vod_addtime desc');</php>
+    <php>$vod_hot = ff_mysql_vod('cid:5,6,7,8,9,10;limit:16;order:vod_hits_day desc');</php>
+
+    <div class="ui-pannel clearfix">
+      <div class="ui-pannel-box padding-0">
+        <div class="col-lg-wide-75 col-xs-1 padding-0">
+          <div class="col-pd ui-pannel-bg">
+            <div class="ui-pannel_hd">
+              <div class="ui-pannel__head clearfix">
+                <a class="more text-muted pull-right" href="{:getlistname(1,'list_url')}" title="电影推荐">更多
+                  <i class="icon iconfont icon-more"></i></a>
+                <h2 class="title">
+                  <img src="{$tpl}static/images/icon_1.png" alt="电影推荐" />
+                  <a href="{:getlistname(1,'list_url')}" title="{:date(Y)}最新电影推荐">{:date(Y)}最新电影</a></h2>
+                <ul class="nav nav-text pull-right hidden-sm hidden-xs">
+                  <volist name="list_menu" id="ppvod">
+                    <volist name="ppvod.son" id="ppvod">
+                      <if condition="$ppvod['list_pid'] eq 1">
+                        <li>
+                          <a href="{$ppvod.list_url}" class="text-muted" title="{$ppvod.list_name}">{$ppvod.list_name}</a>
+                          <span class="split-line"></span>
+                        </li>
+                      </if>
+                    </volist>
+                  </volist>
+
+                </ul>
+              </div>
+            </div>
+            <div class="ui-pannel_bd clearfix">
+              <ul class="ui-vodlist clearfix">
+                <fflist name="vod_new" id="ppvod">
+                  <if condition="$i === 11||$i === 12">
+                    <li class="col-md-5 col-sm-4 col-xs-3 hidden-lg hidden-md">
+                      <div class="ui-vodlist__box">
+                        <a class="ui-vodlist__thumb lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                          <span class="ui-vodlist__top">
+                            <em class="voddate ui-vodlist__language">{$ppvod.vod_language|default='未知'}</em>
+                          </span>
+                          <span class="play hidden-xs"></span>
+                          <span class="pic-text text-right">{$ppvod.vod_continu|default='未知'}</span></a>
+                        <div class="ui-vodlist__detail">
+                          <h3 class="title text-overflow">
+                            <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a></h3>
+                          <p class="text text-overflow text-muted hidden-xs">{$ppvod.vod_actor|default='未知'}</p>
+                        </div>
+                      </div>
+                    </li>
+                    <else />
+
+                    <li class="col-md-5 col-sm-4 col-xs-3">
+                      <div class="ui-vodlist__box">
+                        <a class="ui-vodlist__thumb lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                          <span class="ui-vodlist__top">
+                            <em class="voddate ui-vodlist__language">{$ppvod.vod_language|default='未知'}</em>
+                          </span>
+                          <span class="play hidden-xs"></span>
+                          <span class="pic-text text-right">{$ppvod.vod_continu|default='未知'}</span></a>
+                        <div class="ui-vodlist__detail">
+                          <h3 class="title text-overflow">
+                            <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a></h3>
+                          <p class="text text-overflow text-muted hidden-xs">{$ppvod.vod_actor|default='未知'}</p>
+                        </div>
+                      </div>
+                    </li>
+                  </if>
+                </fflist>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-wide-25 ui-pannel-side hidden-md hidden-sm hidden-xs">
+          <div class="col-pd ui-pannel-bg clearfix">
+            <div class="ui-pannel_hd">
+              <div class="ui-pannel__head clearfix">
+                <h2 class="title">
+                  <img src="{$tpl}static/images/icon_12.png" alt="电影热播榜" />电影热播榜</h2>
+              </div>
+            </div>
+            <div class="ui-pannel_bd">
+              <ul class="ui-vodlist__rank col-pd clearfix">
+                <fflist name="vod_hot" id="ppvod">
+                  <if condition="$i === 1">
+                    <li>
+                      <a class="ui-vodlist__thumb active lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                        <span class="play active hidden-xs"></span>
+                        <span class="pic-tag pic-tag-h">Top{$i}</span></a>
+                    </li>
+                    <else />
+
+                    <li>
+                      <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+                        <span class="text-muted pull-right hidden-md">{$ppvod.vod_continu|default='未知'}</span>
+                        <span class="badge <if condition="$i === 2">badge-first</if><if condition="$i === 3">badge-second</if><if condition="$i === 4">badge-third</if>">{$i}</span>{$ppvod.vod_name}</a></li>
+                  </if>
+                </fflist>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--结束电影-->
+
+    <!--电视剧栏目-->
+    <php>$vod_new = ff_mysql_vod('cid:11,12,13,14,15,16;limit:7;order:vod_addtime desc');</php>
+    <php>$vod_hot = ff_mysql_vod('cid:11,12,13,14,15,16;limit:18;order:vod_hits_day desc');</php>
+
+    <div class="ui-pannel ui-pannel-bg clearfix">
+      <div class="ui-pannel-box">
+        <div class="ui-pannel_hd">
+          <div class="ui-pannel__head clearfix">
+            <a class="more text-muted pull-right" href="{:getlistname(2,'list_url')}" title="电视剧推荐">更多
+              <i class="icon iconfont icon-more"></i></a>
+            <h2 class="title">
+              <img src="{$tpl}static/images/icon_2.png" alt="电视剧推荐" />
+              <a href="{:getlistname(2,'list_url')}" title="{:date(Y)}最新电视剧推荐">{:date(Y)}最新电视剧</a></h2>
+            <ul class="nav nav-text pull-right hidden-sm hidden-xs">
+              <volist name="list_menu" id="ppvod">
+                <volist name="ppvod.son" id="ppvod">
+                  <if condition="$ppvod['list_pid'] eq 2">
+                    <li>
+                      <a href="{$ppvod.list_url}" class="text-muted" title="{$ppvod.list_name}">{$ppvod.list_name}</a>
+                      <span class="split-line"></span>
+                    </li>
+                  </if>
+                </volist>
+              </volist>
+
+            </ul>
+          </div>
+        </div>
+        <div class="ui-pannel_bd clearfix">
+          <div class="col-md-wide-4 col-xs-1 padding-0">
+            <div class="carousel carousel_default col-pd">
+              <div class="wide">
+                <fflist name="vod_new" id="ppvod">
+                <if condition="$i === 1">
+                <a href="{$ppvod.vod_readurl}" class="ui-vodlist__thumb active lazyload" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                  <span class="play hidden-xs"></span>
+                  <span class="pic-tag pic-tag-h">推荐</span>
+                  <span class="pic-text pic-text-silde text-center">{$ppvod.vod_name}</span></a>
+                </if>
+                </fflist>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-wide-6 col-xs-1 padding-0">
+            <ul class="ui-vodlist clearfix">
+              <fflist name="vod_new" id="ppvod">
+              <if condition="$i gt 1">
+              <li class="col-md-3 col-sm-3 col-xs-2">
+                <div class="ui-vodlist__box">
+                  <a class="ui-vodlist__thumb active lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                    <span class="ui-vodlist__top">
+                      <em class="voddate ui-vodlist__language">{$ppvod.vod_language|default='未知'}</em>
+                    </span>
+                    <span class="play hidden-xs"></span>
+                    <span class="pic-text text-right"></span>
+                    <span class="pic-text text-center">{$ppvod.vod_name}</span></a>
+                </div>
+              </li>
+              </if>
+              </fflist>
+
+            </ul>
+          </div>
+        </div>
+        <ul class="ui-vodlist__text col-pd hidden-xs clearfix">
+          <fflist name="vod_hot" id="ppvod">
+          <li class="col-xs-6 padding-0">
+            <a class="top-line-dot text-overflow" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+              <i class="icon iconfont icon-more pull-right text-muted"></i>{$ppvod.vod_name}</a>
+          </li>
+          </fflist>
+
+        </ul>
+        <div class="ui-pannel_ft top-line visible-xs clearfix">
+          <a class="text-muted" href="{:getlistname(2,'list_url')}">查看更多电视剧
+            <i class="icon iconfont icon-more"></i></a>
+        </div>
+      </div>
+    </div>
+    <!--结束电视剧-->
+
+    <!--综艺节目栏目-->
+    <php>$vod_new = ff_mysql_vod('cid:17;limit:7;order:vod_addtime desc');</php>
+    <php>$vod_hot = ff_mysql_vod('cid:17;limit:18;order:vod_hits_day desc');</php>
+
+    <div class="ui-pannel ui-pannel-bg clearfix">
+      <div class="ui-pannel-box">
+        <div class="ui-pannel_hd">
+          <div class="ui-pannel__head clearfix">
+            <a class="more text-muted pull-right" href="{:getlistname(3,'list_url')}" title="综艺节目推荐">更多
+              <i class="icon iconfont icon-more"></i></a>
+            <h2 class="title">
+              <img src="{$tpl}static/images/icon_3.png" alt="综艺节目推荐" />
+              <a href="{:getlistname(3,'list_url')}" title="{:date(Y)}最新综艺节目推荐">{:date(Y)}最新综艺节目</a></h2>
+          </div>
+        </div>
+        <div class="ui-pannel_bd clearfix">
+          <div class="col-md-wide-4 col-xs-1 padding-0">
+            <div class="carousel carousel_default col-pd">
+              <div class="wide">
+                <fflist name="vod_new" id="ppvod">
+                <if condition="$i === 1">
+                <a href="{$ppvod.vod_readurl}" class="ui-vodlist__thumb active lazyload" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                  <span class="play hidden-xs"></span>
+                  <span class="pic-tag pic-tag-h">推荐</span>
+                  <span class="pic-text pic-text-silde text-center">{$ppvod.vod_name}</span></a>
+                </if>
+                </fflist>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-wide-6 col-xs-1 padding-0">
+            <ul class="ui-vodlist clearfix">
+              <fflist name="vod_new" id="ppvod">
+              <if condition="$i gt 1">
+              <li class="col-md-3 col-sm-3 col-xs-2">
+                <div class="ui-vodlist__box">
+                  <a class="ui-vodlist__thumb active lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                    <span class="ui-vodlist__top">
+                      <em class="voddate ui-vodlist__language">{$ppvod.vod_language|default='未知'}</em>
+                    </span>
+                    <span class="play hidden-xs"></span>
+                    <span class="pic-text text-right"></span>
+                    <span class="pic-text text-center">{$ppvod.vod_name}</span></a>
+                </div>
+              </li>
+              </if>
+              </fflist>
+
+            </ul>
+          </div>
+        </div>
+        <ul class="ui-vodlist__text col-pd hidden-xs clearfix">
+          <fflist name="vod_hot" id="ppvod">
+          <li class="col-xs-6 padding-0">
+            <a class="top-line-dot text-overflow" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+              <i class="icon iconfont icon-more pull-right text-muted"></i>{$ppvod.vod_name}</a>
+          </li>
+          </fflist>
+
+        </ul>
+        <div class="ui-pannel_ft top-line visible-xs clearfix">
+          <a class="text-muted" href="{:getlistname(3,'list_url')}">查看更多综艺节目
+            <i class="icon iconfont icon-more"></i></a>
+        </div>
+      </div>
+    </div>
+    <!--结束综艺节目-->
+
+    <!--纪录片栏目-->
+    <php>$vod_new = ff_mysql_vod('cid:18;limit:12;order:vod_addtime desc');</php>
+    <php>$vod_hot = ff_mysql_vod('cid:18;limit:16;order:vod_hits_day desc');</php>
+
+    <div class="ui-pannel clearfix">
+      <div class="ui-pannel-box padding-0">
+        <div class="col-lg-wide-75 col-xs-1 padding-0">
+          <div class="col-pd ui-pannel-bg">
+            <div class="ui-pannel_hd">
+              <div class="ui-pannel__head clearfix">
+                <a class="more text-muted pull-right" href="{:getlistname(4,'list_url')}" title="纪录片推荐">更多
+                  <i class="icon iconfont icon-more"></i></a>
+                <h2 class="title">
+                  <img src="{$tpl}static/images/icon_4.png" alt="纪录片推荐" />
+                  <a href="{:getlistname(4,'list_url')}" title="{:date(Y)}最新纪录片推荐">{:date(Y)}最新纪录片</a></h2>
+              </div>
+            </div>
+            <div class="ui-pannel_bd clearfix">
+              <ul class="ui-vodlist clearfix">
+                <fflist name="vod_new" id="ppvod">
+                  <if condition="$i === 11||$i === 12">
+                    <li class="col-md-5 col-sm-4 col-xs-3 hidden-lg hidden-md">
+                      <div class="ui-vodlist__box">
+                        <a class="ui-vodlist__thumb lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                          <span class="ui-vodlist__top">
+                            <em class="voddate ui-vodlist__language">{$ppvod.vod_language|default='未知'}</em>
+                          </span>
+                          <span class="play hidden-xs"></span>
+                          <span class="pic-text text-right">{$ppvod.vod_continu|default='未知'}</span></a>
+                        <div class="ui-vodlist__detail">
+                          <h3 class="title text-overflow">
+                            <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a></h3>
+                          <p class="text text-overflow text-muted hidden-xs">{$ppvod.vod_actor|default='未知'}</p>
+                        </div>
+                      </div>
+                    </li>
+                    <else />
+
+                    <li class="col-md-5 col-sm-4 col-xs-3">
+                      <div class="ui-vodlist__box">
+                        <a class="ui-vodlist__thumb lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                          <span class="ui-vodlist__top">
+                            <em class="voddate ui-vodlist__language">{$ppvod.vod_language|default='未知'}</em>
+                          </span>
+                          <span class="play hidden-xs"></span>
+                          <span class="pic-text text-right">{$ppvod.vod_continu|default='未知'}</span></a>
+                        <div class="ui-vodlist__detail">
+                          <h3 class="title text-overflow">
+                            <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a></h3>
+                          <p class="text text-overflow text-muted hidden-xs">{$ppvod.vod_actor|default='未知'}</p>
+                        </div>
+                      </div>
+                    </li>
+                  </if>
+                </fflist>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-wide-25 ui-pannel-side hidden-md hidden-sm hidden-xs">
+          <div class="col-pd ui-pannel-bg clearfix">
+            <div class="ui-pannel_hd">
+              <div class="ui-pannel__head clearfix">
+                <h2 class="title">
+                  <img src="{$tpl}static/images/icon_12.png" alt="纪录片热播榜" />纪录片热播榜</h2>
+              </div>
+            </div>
+            <div class="ui-pannel_bd">
+              <ul class="ui-vodlist__rank col-pd clearfix">
+                <fflist name="vod_hot" id="ppvod">
+                  <if condition="$i === 1">
+                    <li>
+                      <a class="ui-vodlist__thumb active lazyload" href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}" data-original="{$ppvod.vod_picurl}" style="background-position:50% 50%; background-size: cover;">
+                        <span class="play active hidden-xs"></span>
+                        <span class="pic-tag pic-tag-h">Top{$i}</span></a>
+                    </li>
+                    <else />
+
+                    <li>
+                      <a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">
+                        <span class="text-muted pull-right hidden-md">{$ppvod.vod_continu|default='未知'}</span>
+                        <span class="badge <if condition="$i === 2">badge-first</if><if condition="$i === 3">badge-second</if><if condition="$i === 4">badge-third</if>">{$i}</span>{$ppvod.vod_name}</a></li>
+                  </if>
+                </fflist>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--结束纪录片-->
+
+    <!--专题栏目-->
+    <div class="ui-pannel ui-pannel-bg clearfix">
+      <div class="ui-pannel-box">
+        <div class="ui-pannel_hd">
+          <div class="ui-pannel__head clearfix">
+            <a class="more text-muted pull-right" href="{$url_special}">更多
+              <i class="icon iconfont icon-more"></i></a>
+            <h2 class="title">
+              <img src="{$tpl}static/images/icon_5.png" alt="{:date(Y)}最新专题" />{:date(Y)}最新专题</h2>
+            <ul class="nav nav-text pull-right hidden-sm hidden-xs"></ul>
+          </div>
+        </div>
+        <div class="ui-pannel_bd clearfix">
+          <ul class="ui-vodlist clearfix">
+            <fflist name="special_hot" id="ppvod">
+              <li class="col-md-3 col-sm-3 col-xs-1">
+                <div class="ui-vodlist__box ui-pannel_bg">
+                  <a class="ui-vodlist__thumb active lazyload" href="{$ppvod.special_readurl}" title="{$ppvod.special_name}" data-original="{$ppvod.special_logo}" style="padding-top: 50%;">
+                    <span class="play hidden-xs"></span>
+                  </a>
+                  <div class="ui-vodlist__detail">
+                    <h4 class="title text-center text-overflow">
+                      <a href="{$ppvod.special_readurl}" title="{$ppvod.special_name}">{$ppvod.special_name}</a></h4>
+                    <p class="text text-center text-overflow text-muted">—— <volist name="list_topic" id="topic">
+                        <if condition="!empty($topic['1-'.$ppvod['special_id']])">{:$topic['1-'.$ppvod['special_id']]}</if>
+                      </volist>个影片 ——</p>
+                  </div>
+                </div>
+              </li>
+            </fflist>
+
+          </ul>
+        </div>
+        <div class="ui-pannel_ft top-line visible-xs clearfix">
+          <a class="text-muted" href="{$url_special}">查看更多专题
+            <i class="icon iconfont icon-more"></i></a>
+        </div>
+      </div>
+    </div>
+    <!--结束专题-->
+
+    <!--友情链接-->
+    <div class="ui-pannel ui-pannel-bg hidden-sm clearfix">
+      <div class="ui-pannel-box">
+        <div class="ui-pannel_hd">
+          <div class="ui-pannel__head clearfix">
+            <h3 class="title">
+              <img src="{$tpl}static/images/icon_26.png" alt="友情链接" />友情链接</h3>
+          </div>
+        </div>
+        <div class="ui-pannel_bd clearfix">
+          <div class="col-xs-1">
+            <ul class="ui-link__text clearfix">
+              <fflist name="list_link" id="ppvod">
+                <li><a class="text-muted" href="{$ppvod.link_url}" title="{$ppvod.link_name}" target="_blank">{$ppvod.link_name}</a></li>
+              </fflist>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--结束友情链接-->
+  </div>
+</div>
+<!--结束内容-->
+
+<include file="Home:pp_footer" />
+
+<script>
+  $(function(){
+      var begin1=0;
+      var rollDom=$('.scroll');
+      var wideRoll=parseInt(rollDom.width());
+      var begin2=0;
+      var marquee=$('.marquee .p');
+      var wideMarquee=parseInt(marquee.width());
+      $('.marquee').append(marquee.clone(true));
+      var roll1=setInterval(function(){
+          begin1-=10;
+          rollDom.css({'margin-left': begin1+'px'});
+          if(-begin1>=wideRoll){
+              begin1=0;
+          }
+      },20);
+      var roll2=setInterval(function(){
+          begin2-=1;
+          marquee.css({'margin-left': begin2+'px'});
+          if(-begin2>=wideMarquee){
+              begin2=0;
+          }
+      },20);
+  });
+</script>
+
+</body>
+</html>
