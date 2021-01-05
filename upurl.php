@@ -6,7 +6,7 @@ $id = !empty($_GET['id'])?intval($_GET['id']):1;
 $end = !empty($_GET['end'])?intval($_GET['end']):1;
 
 if(!empty($id)&&$id<=$end){
-    $SqlID = 'UPDATE ff_vod SET vod_url=\'https://bitdash-a.akamaihd.net/content/sintel/hls/video/250kbit.m3u8?'.time().'\', vod_continu=\'HD1280\' WHERE vod_id='.$id;
+    $SqlID = 'UPDATE ff_vod SET vod_url=\'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8?'.time().'\', vod_continu=\'HD1280\' WHERE vod_id='.$id;
     getInsert('127.0.0.1','root','root','root',$SqlID);
     echo '正在 第'.$id.'条 更新<script>setTimeout(function(){window.location.href="/upurl.php?id='.($id+1).'&end='.$end.'";}, 1000);</script>';
 } else {
