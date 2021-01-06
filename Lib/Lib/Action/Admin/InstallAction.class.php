@@ -55,7 +55,7 @@ class InstallAction extends Action{
 			'site_name' => '第三视频',
 			'site_path' => '/',
 			'site_url' => 'http://localhost/',
-			'site_keywords' => '在线观看,视频网站,高清视频',
+			'site_keywords' => '在线观看,视频网站,热播电影,热播电视剧,第三视频',
 			'site_description' => '专注于电影、电视剧、综艺节目在线观看的视频网站;第三视频提供高分电影、热播电视剧、综艺节目大全等免费在线观看;最新好看的电影、热播电视剧、综艺节目等值得大家关注收藏!',
 			'site_email' => '110119@qq.com',
 			'site_copyright' => '免则声明:本站只提供WEB页面服务，本站不存储、不制作任何视频，不承担任何由于内容的合法性及健康性所引起的争议和法律责任。<br />若本站收录内容侵犯了您的权益，请附说明联系邮箱，本站将第一时间处理。',
