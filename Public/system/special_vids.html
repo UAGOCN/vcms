@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="cmn-Hans">
+<head>
+<title>专题列表管理</title>
+<meta charset="utf-8">
+<link rel='stylesheet' type='text/css' href='__PUBLIC__/css/admin-style.css' />
+<script src="__PUBLIC__/jquery/jquery.min.js"></script>
+<script src="__PUBLIC__/js/admin.js"></script>
+<script>
+$(document).ready(function(){
+	$feifeicms.show.table();
+});
+</script>
+<style>
+ul{ float:left; text-align:left}
+ul li{ float:left; width:260px; margin-left:10px; line-height:21px; height:21px}
+ul li span{ float:right;}
+</style>
+</head>
+<body class="body" style="color:#333333; font-size:13px">
+<ul><volist name="list_vod" id="ppvod"><li><span>(移除)</span>{$ppvod.vod_name|msubstr=0,10}</li></volist></ul>
+</body>
+</html>
