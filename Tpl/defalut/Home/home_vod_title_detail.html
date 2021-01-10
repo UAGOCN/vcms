@@ -1,0 +1,24 @@
+<title>《{$vod_name}》<eq name="list_pid" value="2">全集 - {$list_name}<else />{$vod_continu} - {$list_name}</eq> - {$sitename}</title>
+<meta name="title" content="《{$vod_name}》<eq name="list_pid" value="2">全集 - {$list_name}<else />{$vod_continu} - {$list_name}</eq> - {$sitename}">
+
+<in name="list_pid" value="2,3">
+<meta name="keywords" content="{$vod_name}全集,电视剧全集,电视剧大全,在线观看,{$list_name}">
+<meta name="description" content="{$vod_name}全集，是由{$vod_director}导演，由{$vod_actor|h|msubstr=0,20}等主演的电视剧，上映时间：{$vod_year}，视频内容简介：{$vod_content|h|msubstr=0,80}...。">
+<else />
+<meta name="keywords" content="{$vod_name},看电影,电影完整版,电影在线观看,{$list_name}">
+<meta name="description" content="{$vod_name}，是由{$vod_director}导演，由{$vod_actor|h|msubstr=0,20}等主演的电影，上映时间：{$vod_year}，视频内容简介：{$vod_content|h|msubstr=0,80}...。">
+</in>
+
+<meta property="og:type" content="videolist">
+<meta property="og:title" content="《{$vod_name}》<eq name="list_pid" value="2">全集 - {$list_name}<else />{$vod_continu} - {$list_name}</eq> - {$sitename}">
+<meta property="og:description" content="{$vod_content|h|msubstr=0,80}...。">
+<meta property="og:image" content="{$sitehost}{$vod_picurl}">
+<meta property="og:url" content="{$sitehost}{$vod_readurl}">
+<meta property="og:video:actor" content="<notempty name="vod_actor">{$vod_actor}<else />未录入</notempty>">
+<meta property="og:video:director" content="<notempty name="vod_director">{$vod_director}<else />未录入</notempty>">
+<meta property="og:video:update_date" content="{$vod_addtime|date='Y-m-d',###}">
+<meta property="og:video:area" content="<notempty name="vod_area">{$vod_area}<else />未录入</notempty>">
+<meta property="og:video:score" content="<notempty name="vod_gold">{$vod_gold}<else />0.0</notempty>">
+<meta property="og:video:language" content="<notempty name="vod_language">{$vod_language}<else />未录入</notempty>">
+
+<link rel="canonical" href="{$sitehost}{$vod_readurl}">
