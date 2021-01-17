@@ -138,7 +138,7 @@ class AllAction extends Action{
 			    $urllist[$key]['playpath'] = trim($ji[1]);
 			}else{
 				if($continus === false||count($array_url)>1) {
-					$urllist[$key]['playname'] = '第'.((strlen($key+1)=='1')?'00'.($key+1):((strlen($key+1)=='2')?'0'.($key+1):$key+1)).'集';
+					$urllist[$key]['playname'] = '第'.substr(strval(($key+1)+10000),1,4).'集';
 				} else {
 					$urllist[$key]['playname'] = $continus.' 在线观看';
 				}

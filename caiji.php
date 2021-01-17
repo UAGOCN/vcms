@@ -37,7 +37,7 @@ if(!empty($_GET['id'])&&!empty($_GET['list'])) {
     echo '<h1>正在采集 栏目 '.intval($list).' 第 '.intval($id).' 页 第 '.intval($cid).' 条数据</h1>';
 
     if(!empty($caiji)&&is_array($caiji)) {
-        $vod_name = $vod_actor = $vod_director = $vod_content = $vod_pic = $vod_area = $vod_language = $vod_year = $vod_addtime = $vod_url = $vod_continu = $value = NULL;
+        $vod_name = $vod_actor = $vod_director = $vod_content = $vod_pic = $vod_area = $vod_language = $vod_year = $vod_addtime = $vod_url = $vod_continu = $urlArr = $value = NULL;
 
         $title = '/([a-zA-Z0-9\/\_\～\-\.\:\·\,\，\、\（\）\s]+|[\x{4e00}-\x{9fff}]+|[\x{0800}-\x{4e00}]+|[\x{AC00}-\x{D7A3}]+|[\x{4e00}-\x{9fa5}]+)/u';
 
@@ -57,7 +57,7 @@ if(!empty($_GET['id'])&&!empty($_GET['list'])) {
 
         preg_match_all($title, preg_replace(array("/\&.*?\;/","/\,\,/"),"",strip_tags($value['vod_content'])), $vod_content);
         if(empty($vod_content[1])){exit($toHref);}
-        $vod_content = implode($vod_content[1]);
+        $vod_content = str_replace(array("\r\n", "\r", "\n"), "",preg_replace('/\s+/u','',implode($vod_content[1])));
 
         preg_match_all('/([a-zA-Z0-9\:\_\/\-\.]+(png|jpg))/', $value['vod_pic'], $vod_pic);
         if(empty($vod_pic[2])){exit($toHref);}
@@ -78,11 +78,24 @@ if(!empty($_GET['id'])&&!empty($_GET['list'])) {
         if(empty($value['vod_addtime'])){exit($toHref);}
         $vod_addtime = strtotime($value['vod_addtime']);
 
-        preg_match_all('/([a-zA-Z0-9\:\_\/\-\.]+m3u8)/', $value['vod_url'], $vod_url);
+        preg_match_all('/([a-zA-Z0-9]+|[a-zA-Z0-9]+期上|[a-zA-Z0-9]+期下|[a-zA-Z0-9]+期|第[0-9]+集|[a-zA-Z0-9\x{4e00}-\x{9fff}]+)\$([a-zA-Z0-9\:\_\/\-\.]+m3u8)/u', $value['vod_url'], $vod_url);
         if(empty($vod_url[1])){exit($toHref);}
-        $vod_length = ceil(getDuration($vod_url[1][count($vod_url[1])-1])/60);
+        $vod_length = ceil(getDuration($vod_url[2][count($vod_url[2])-1])/60);
         if(empty($vod_length)){exit($toHref);}
-        $vod_url = str_replace('http://','https://',implode(PHP_EOL,$vod_url[1]));
+        foreach($vod_url[1] as $key => $values) {
+            $srtUrl = substr_count(strtolower($values),"集");
+            if(empty($srtUrl)) {
+                $srtUrl = substr_count(strtolower($values),"期");
+                if(empty($srtUrl)) {
+                    $urlArr[] = trim(strtoupper(mb_substr($values,0,ChineseChar($values)))).'$'.$vod_url[2][$key];
+                }else{
+                    $urlArr[] = trim($values).'$'.$vod_url[2][$key];
+                }
+            } else {
+                $urlArr[] = '第'.substr(strval(($key+1)+10000),1,4).'集'.'$'.$vod_url[2][$key];
+            }
+        }
+        $vod_url = str_replace('http://','https://',implode(PHP_EOL,array_reverse($urlArr)));
 
         preg_match_all($title, $value['vod_continu'], $vod_continu);
         if(empty($vod_continu[1])){exit($toHref);}

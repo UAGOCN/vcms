@@ -296,9 +296,9 @@ __PUBLIC__网站公用目录路径
 
 {$vod_cid}　分类ID
 
-{$vod_name}视频名称
+{$vod_name} 视频名称
 
-{$vod_title}视频副标
+{$vod_title} 视频副标
 
 {$vod_diantai} 视频电视台
 

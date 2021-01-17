@@ -29,7 +29,7 @@
                 <i class="icon iconfont icon-more"></i>
                 <a href="{$list_url}">{$list_name}</a>
                 <i class="icon iconfont icon-more"></i>
-                <span class="text-muted">{$vod_name}_<eq name="list_pid" value="2">{$vod_jiname}<else />{$vod_continu}</eq></span></p>
+                <span class="text-muted">{$vod_name} <in name="list_pid" value="2,3,4">{$vod_jiname}<else />{$vod_continu}</in></span></p>
               <div class="ui-player__video embed-responsive embed-responsive-16by9 clearfix">
                 <div class="player" id="cms_player">{$vod_player}</div>
               </div>
@@ -49,19 +49,19 @@
                   <li>
                   <if condition="$vod_pid gt 1">
                     <a class="btn btn-default" href="{:UU('Home-vod/play',array('id'=>$vod_id,'sid'=>0,'pid'=>($vod_pid-1)),false,true)}">
-                      <i class="icon iconfont icon-back hidden-xs"></i>上一集</a>
+                      <i class="icon iconfont icon-back hidden-xs"></i>下一集</a>
                     <else />
                     <a class="btn btn-default" href="{$list_url}">
-                      <i class="icon iconfont icon-back hidden-xs"></i>上一集</a>
+                      <i class="icon iconfont icon-back hidden-xs"></i>下一集</a>
                   </if>
 
                   </li>
                   <li>
                     <if condition="$vod_pid lt $vod_count">
-                      <a class="btn btn-default" href="{:UU('Home-vod/play',array('id'=>$vod_id,'sid'=>0,'pid'=>($vod_pid+1)),false,true)}">下一集
+                      <a class="btn btn-default" href="{:UU('Home-vod/play',array('id'=>$vod_id,'sid'=>0,'pid'=>($vod_pid+1)),false,true)}">上一集
                         <i class="icon iconfont icon-more hidden-xs"></i></a>
                       <else />
-                      <a class="btn btn-default" href="{$list_url}">下一集
+                      <a class="btn btn-default" href="{$list_url}">上一集
                         <i class="icon iconfont icon-more hidden-xs"></i></a>
                     </if>
 
@@ -107,7 +107,7 @@
           <div class="ui-pannel_hd">
             <div class="ui-pannel__head clearfix">
               <h3 class="title">
-                <img src="{$tpl}static/images/icon_30.png" alt="{$list_name}[{$vod_name}]剧情介绍" />{$list_name}[{$vod_name}]剧情介绍</h3></div>
+                <img src="{$tpl}static/images/icon_30.png" alt="{$list_name} [{$vod_name}] 剧情介绍" />{$list_name} [{$vod_name}] 剧情介绍</h3></div>
           </div>
           <div class="ui-pannel_bd">
             <div class="detail col-pd">

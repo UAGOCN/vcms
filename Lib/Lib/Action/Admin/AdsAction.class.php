@@ -15,7 +15,7 @@ class AdsAction extends BaseAction{
 				$adName[] = 'if(json[\''.$value['ads_name'].'\']){addPropaganda($(\'.'.$value['ads_name'].'\'),json[\''.$value['ads_name'].'\']);}';
 			}
         }
-		write_file('./'.C('admin_ads_file').'/common.js','var list_file='.json_encode($adList, JSON_UNESCAPED_UNICODE).PHP_EOL.'function propaganda(json){'.implode($adName).'}function addPropaganda(JQdom,data,canClose){var htmlString=\'\';for(var i=0,max=data[0].length;i<max;i++){if(!Array.isArray(data[1])){htmlString+=data[0][i];}else{htmlString+=\'<a href="\'+data[0][i]+\'" target="_blank"><img class="lazy" src="\'+data[1][i]+\'" width="\'+data[2][i]+\'" height="\'+data[3][i]+\'" />\'+(canClose?\'<span class="close">关闭</span>\':\'\')+\'</a>\';}}JQdom.html(htmlString);}propaganda(list_file);');
+		write_file('./'.C('admin_ads_file').'/common.js','var list_file='.json_encode($adList, JSON_UNESCAPED_UNICODE).PHP_EOL.'function propaganda(json){'.implode($adName).'}function addPropaganda(JQdom,data,canClose){var htmlString=\'\';for(var i=0,max=data[0].length;i<max;i++){if(!Array.isArray(data[1])){htmlString+=data[0][i];}else{htmlString+=\'<a href="\'+data[0][i]+\'" target="_blank" rel="nofollow"><img class="lazy" src="\'+data[1][i]+\'" width="\'+data[2][i]+\'" height="\'+data[3][i]+\'" />\'+(canClose?\'<span class="close">关闭</span>\':\'\')+\'</a>\';}}JQdom.html(htmlString);}propaganda(list_file);');
 		write_file('./'.C('admin_ads_file').'/common.json',json_encode($adList, JSON_UNESCAPED_UNICODE));
 		$this->assign('list_ads',$list);
         $this->display('./Public/system/ads_show.html');

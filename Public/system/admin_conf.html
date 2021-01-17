@@ -105,7 +105,7 @@ label{ color:#666666}
     	<li class="right"><input type="text" name="config[site_icp]" id="site_icp" value="{$site_icp}" maxlength="20">&nbsp;</li>
     </ul>
     <ul><li class="left">站长邮箱：</li>
-    	<li class="right"><input type="text" name="config[site_email]" id="site_email" value="{$site_email}" maxlength="20">&nbsp;</li>
+    	<li class="right"><input type="text" name="config[site_email]" id="site_email" value="{$site_email}" maxlength="30">&nbsp;</li>
     </ul> 
      <ul><li class="left">模板方案：</li>
     	<li class="right"><select name="config[default_theme]" class="w70"><volist name="dir" id="admin"><option value="{$admin.filename}" <eq name="admin.filename" value="$default_theme">selected</eq>>{$admin.filename}</option></volist></select>&nbsp;</li>
