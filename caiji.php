@@ -57,7 +57,7 @@ if(!empty($_GET['id'])&&!empty($_GET['list'])) {
 
         preg_match_all($title, preg_replace(array("/\&.*?\;/","/\,\,/"),"",strip_tags($value['vod_content'])), $vod_content);
         if(empty($vod_content[1])){exit($toHref);}
-        $vod_content = str_replace(array("\r\n", "\r", "\n"), "",preg_replace('/\s+/u','',implode($vod_content[1])));
+        $vod_content = implode($vod_content[1]);
 
         preg_match_all('/([a-zA-Z0-9\:\_\/\-\.]+(png|jpg))/', $value['vod_pic'], $vod_pic);
         if(empty($vod_pic[2])){exit($toHref);}
