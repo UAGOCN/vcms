@@ -620,13 +620,13 @@ function UU($model,$params,$redirect=false,$suffix=false,$type='wd'){
 		}elseif($model == 'Home-news/show'){
 			$reurl = str_replace(array('$id','$page'),array(!empty($params['id'])?$params['id']:1,!empty($params['p'])?$params['p']:1),C('rewrite_newslist'));
 		}elseif($model == 'Home-news/read'){
-			$reurl = str_replace('$id',$params['id'],C('rewrite_newsdetail'));
+			$reurl = str_replace('$id',!empty($params['id'])?$params['id']:1,C('rewrite_newsdetail'));
 		}elseif($model == 'Home-news/search'){
 			$reurl = str_replace(array('$wd','$page'),array(!empty($params['wd'])?$params['wd']:'',!empty($params['p'])?$params['p']:1),C('rewrite_newssearch'));
 		}elseif($model == 'Home-tag/news'){
 			$reurl = str_replace(array('$wd','$page'),array(!empty($params['wd'])?$params['wd']:'',!empty($params['p'])?$params['p']:1),C('rewrite_newstag'));
 		}elseif($model == 'Home-special/show'){
-			$reurl = str_replace('$page',!empty($params['p'])?$params['p']:1,C('rewrite_specialshow'));
+			$reurl = str_replace('$page',!empty($params['p'])?$params['p']:1,C('rewrite_speciallist'));
 		}elseif($model == 'Home-special/read'){
 			$reurl = str_replace('$id',!empty($params['id'])?$params['id']:1,C('rewrite_specialdetail'));
 		}elseif($model == 'Home-gb/show'){
