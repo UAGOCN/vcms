@@ -11,6 +11,7 @@ class HitsAction extends HomeAction{
 		if($type == 'insert'){
 			$this->hits_insert($sid,$array);
 			header('Content-type: text/javascript');
+            echo '1';
 		}else{
 			if($array){
 				echo("document.write('".$array[$type]."');");
